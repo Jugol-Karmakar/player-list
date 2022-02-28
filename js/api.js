@@ -1,4 +1,5 @@
 const searchLoad = () => {
+  document.getElementById("spinner").style.display = "block";
   const searchInput = document.getElementById("search-input");
   const searchText = searchInput.value;
   searchInput.value = "";
@@ -10,23 +11,28 @@ const searchLoad = () => {
 };
 
 const displayLoad = (players) => {
+  if (players) {
+    document.getElementById("spinner").style.display = "none";
+  } else {
+    document.getElementById("spinner").style.display = "block";
+  }
   const playerContain = document.getElementById("players");
   playerContain.textContent = "";
   players.forEach((player) => {
     const div = document.createElement("div");
     div.classList.add("col");
     div.innerHTML = `
-        <div class="card">
-        <img src="${player.strThumb}" class="card-img-top" alt="..." />
-        <div class="card-body">
-         <h5 class="card-title">${player.strPlayer}</h5>
-             <p class="card-text">${player.strNationality}. ${player.strSport}</p>     
+          <div class="card">
+          <img src="${player.strThumb}" class="card-img-top" alt="..." />
+          <div class="card-body">
+           <h5 class="card-title">${player.strPlayer}</h5>
+               <p class="card-text">${player.strNationality}. ${player.strSport}</p>     
+          </div>
+          <div onclick="playerLoad('${player.idPlayer}')" class="card-footer text-center">
+          <span >Details</span>
         </div>
-        <div onclick="playerLoad('${player.idPlayer}')" class="card-footer text-center">
-        <span >Details</span>
       </div>
-    </div>
-    `;
+      `;
     playerContain.appendChild(div);
   });
 };
